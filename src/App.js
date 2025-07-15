@@ -26,6 +26,49 @@ function App() {
     },
   ];
 
+  const teamMembers = [
+    {
+      name: "Benson Eldho",
+      role: "Team Captain",
+      image: "/team/benson.jpg",
+    },
+    {
+      name: "Abhinav Krishna",
+      role: "Vice Captain",
+      image: "/team/abhinav.jpg",
+    },
+    {
+      name: "Ashna Afsal",
+      role: "member",
+      image: "/team/ashna.jpg",
+    },
+    {
+      name: "Adarsh NA",
+      role: "member",
+      image: "/team/team4.jpg",
+    },
+    {
+      name: "Ann Rose PJ",
+      role: "Scribe",
+      image: "/team/ann.jpg",
+    },
+    {
+      name: "Arsha Mario",
+      role: "member",
+      image: "/team/temp2.jpg",
+    },
+    {
+      name: "Abin Joy",
+      role: "member",
+      image: "/team/abin.jpg",
+    },
+    {
+      name: "Abhin Pradeep",
+      role: "member",
+      image: "/team/abhin.jpg",
+    },
+  ];
+
   return (
     <div className="App">
       {/* Navigation Bar */}
@@ -96,6 +139,57 @@ function App() {
                   {value.title}.
                 </h3>
                 <p className="value-organic-description">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="team-section" id="team">
+        <div className="container">
+          <h2 className="section-title">Meet Our Team</h2>
+          <div className="team-grid">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="team-card">
+                <div className="team-image-container">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="team-image"
+                    onError={(e) => {
+                      // Create a placeholder with initials
+                      const canvas = document.createElement("canvas");
+                      canvas.width = 300;
+                      canvas.height = 300;
+                      const ctx = canvas.getContext("2d");
+
+                      // Purple gradient background
+                      const gradient = ctx.createLinearGradient(0, 0, 300, 300);
+                      gradient.addColorStop(0, "#8B5CF6");
+                      gradient.addColorStop(1, "#C084FC");
+                      ctx.fillStyle = gradient;
+                      ctx.fillRect(0, 0, 300, 300);
+
+                      // White text with initials
+                      ctx.fillStyle = "white";
+                      ctx.font = "bold 80px Arial";
+                      ctx.textAlign = "center";
+                      ctx.textBaseline = "middle";
+                      const initials = member.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("");
+                      ctx.fillText(initials, 150, 150);
+
+                      e.target.src = canvas.toDataURL();
+                    }}
+                  />
+                </div>
+                <div className="team-info">
+                  <h3 className="team-member-name">{member.name}</h3>
+                  <p className="team-member-role">{member.role}</p>
+                </div>
               </div>
             ))}
           </div>
