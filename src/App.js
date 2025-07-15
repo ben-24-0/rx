@@ -1,4 +1,5 @@
 import "./App.css";
+import SciFiX from "./components/SciFiX";
 
 function App() {
   const teamValues = [
@@ -7,22 +8,22 @@ function App() {
       description:
         "We challenge conventional thinking and push boundaries to create innovative solutions that transform industries. Our clients change the world everyday and we are continually, relentlessly, and earnestly inspired.",
       icon: "🚀",
-      color: "#E879F9" // Light purple/pink
+      color: "#E879F9", // Light purple/pink
     },
     {
       title: "REFINE",
       description:
         "We continuously improve and perfect our processes, ensuring excellence in every detail of our work. The digital and social media space moves quickly; we keep up for you.",
       icon: "✨",
-      color: "#C084FC" // Medium purple
+      color: "#C084FC", // Medium purple
     },
     {
       title: "RISE",
       description:
         "We elevate ourselves and our clients to new heights, fostering growth and success in every endeavor. Developing killer results has been our thing for 9+ years.",
       icon: "📈",
-      color: "#8B5CF6" // Dark purple
-    }
+      color: "#8B5CF6", // Dark purple
+    },
   ];
 
   return (
@@ -31,18 +32,24 @@ function App() {
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-logo">
-            <img
-              src="/rx.jpg"
-              alt="REFINE-X Logo"
-              className="logo"
-            />
-            <span className="logo-text">REFINE<span className="accent">-X</span></span>
+            <img src="/rx.jpg" alt="REFINE-X Logo" className="logo" />
+            <span className="logo-text">
+              REFINE<span className="accent">-X</span>
+            </span>
           </div>
           <div className="navbar-menu">
-            <a href="#home" className="navbar-link">Home</a>
-            <a href="#motive" className="navbar-link">Our Motive</a>
-            <a href="#values" className="navbar-link">Our Values</a>
-            <a href="#team" className="navbar-link">Team</a>
+            <a href="#home" className="navbar-link">
+              Home
+            </a>
+            <a href="#motive" className="navbar-link">
+              Our Motive
+            </a>
+            <a href="#values" className="navbar-link">
+              Our Values
+            </a>
+            <a href="#team" className="navbar-link">
+              Team
+            </a>
           </div>
         </div>
       </nav>
@@ -51,7 +58,9 @@ function App() {
       <header className="header">
         <div className="header-content">
           <h1 className="team-name">
-            REFINE<span className="accent">-X</span>
+            <span className="refine-text">REFINE</span>
+            <span className="dash">-</span>
+            <SciFiX size={150} className="scifi-x" />
           </h1>
           <p className="team-subtitle">TEAM 3</p>
         </div>
@@ -76,11 +85,11 @@ function App() {
           <h2 className="section-title">Our Values</h2>
           <div className="values-organic-grid">
             {teamValues.map((value, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={`value-organic-card value-${index + 1}`}
               >
-                <h3 
+                <h3
                   className="value-organic-title"
                   style={{ color: value.color }}
                 >
