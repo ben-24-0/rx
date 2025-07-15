@@ -1,7 +1,90 @@
 import "./App.css";
-import SciFiX from "./components/SciFiX";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHoverDevice, setIsHoverDevice] = useState(true);
+
+  // Detect if device supports hover
+  useEffect(() => {
+    const checkHoverSupport = () => {
+      const hasHover = window.matchMedia('(hover: hover)').matches;
+      setIsHoverDevice(hasHover);
+    };
+    
+    checkHoverSupport();
+    window.addEventListener('resize', checkHoverSupport);
+    
+    return () => window.removeEventListener('resize', checkHoverSupport);
+  }, []);
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const slideInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  // Smooth scrolling function for navbar links
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   const teamValues = [
     {
       title: "REDEFINE",
@@ -40,12 +123,12 @@ function App() {
     {
       name: "Ashna Afsal",
       role: "member",
-      image: "/team/ashna.jpg",
+      image: "/team/ashna1.jpg",
     },
     {
       name: "Adarsh NA",
       role: "member",
-      image: "/team/team4.jpg",
+      image: "/team/adarsh.jpg",
     },
     {
       name: "Ann Rose PJ",
@@ -55,7 +138,7 @@ function App() {
     {
       name: "Arsha Mario",
       role: "member",
-      image: "/team/temp2.jpg",
+      image: "/team/arsha.jpg",
     },
     {
       name: "Abin Joy",
@@ -72,87 +155,259 @@ function App() {
   return (
     <div className="App">
       {/* Navigation Bar */}
-      <nav className="navbar">
+      <motion.nav
+        className="navbar"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="navbar-container">
-          <div className="navbar-logo">
+          <motion.div
+            className="navbar-logo"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <img src="/rx.jpg" alt="REFINE-X Logo" className="logo" />
             <span className="logo-text">
               REFINE<span className="accent">-X</span>
             </span>
-          </div>
-          <div className="navbar-menu">
-            <a href="#home" className="navbar-link">
+          </motion.div>
+
+          {/* Mobile Menu Toggle */}
+          <motion.button
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </motion.button>
+
+          <motion.div
+            className={`navbar-menu ${isMobileMenuOpen ? "mobile-open" : ""}`}
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.button
+              className="navbar-link"
+              onClick={() => {
+                scrollToSection("home");
+                setIsMobileMenuOpen(false);
+              }}
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Home
-            </a>
-            <a href="#motive" className="navbar-link">
+            </motion.button>
+            <motion.button
+              className="navbar-link"
+              onClick={() => {
+                scrollToSection("motive");
+                setIsMobileMenuOpen(false);
+              }}
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Our Motive
-            </a>
-            <a href="#values" className="navbar-link">
+            </motion.button>
+            <motion.button
+              className="navbar-link"
+              onClick={() => {
+                scrollToSection("values");
+                setIsMobileMenuOpen(false);
+              }}
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Our Values
-            </a>
-            <a href="#team" className="navbar-link">
+            </motion.button>
+            <motion.button
+              className="navbar-link"
+              onClick={() => {
+                scrollToSection("team");
+                setIsMobileMenuOpen(false);
+              }}
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Team
-            </a>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Header Section */}
-      <header className="header">
-        <div className="header-content">
-          <h1 className="team-name">
-            <span className="refine-text">REFINE</span>
-            <span className="dash">-</span>
-            <SciFiX size={150} className="scifi-x" />
-          </h1>
-          <p className="team-subtitle">TEAM 3</p>
-        </div>
+      <motion.header
+        className="header"
+        id="home"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
+        <motion.div
+          className="header-content"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.h1 className="team-name" variants={fadeInUp}>
+            <motion.span
+              className="refine-text"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            >
+              REFINE
+            </motion.span>
+            <motion.span
+              className="dash"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+            >
+              -
+            </motion.span>
+            <motion.span
+              className="scifi-x"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 1.0 }}
+            >
+              X
+            </motion.span>
+          </motion.h1>
+          <motion.p
+            className="team-subtitle"
+            variants={fadeInUp}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+          >
+            TEAM 3
+          </motion.p>
+        </motion.div>
         <div className="header-decoration"></div>
-      </header>
+      </motion.header>
 
       {/* Motive Section */}
-      <section className="motive-section">
+      <motion.section
+        className="motive-section"
+        id="motive"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeInUp}
+      >
         <div className="container">
-          <h2 className="section-title">Our Motive</h2>
-          <p className="motive-text">
+          <motion.h2 className="section-title" variants={slideInLeft}>
+            Our Motive
+          </motion.h2>
+          <motion.p className="motive-text" variants={slideInRight}>
             Empowering transformation through innovation, refinement, and
             relentless pursuit of excellence. We believe in reshaping the future
             by challenging the status quo and creating meaningful impact.
-          </p>
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Values Section */}
-      <section className="values-section">
+      <motion.section
+        className="values-section"
+        id="values"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container">
-          <h2 className="section-title">Our Values</h2>
-          <div className="values-organic-grid">
+          <motion.h2 className="section-title" variants={fadeInUp}>
+            Our Values
+          </motion.h2>
+          <motion.div
+            className="values-organic-grid"
+            variants={staggerContainer}
+          >
             {teamValues.map((value, index) => (
-              <div
+              <motion.div
                 key={index}
                 className={`value-organic-card value-${index + 1}`}
+                variants={scaleIn}
+                {...(isHoverDevice && {
+                  whileHover: {
+                    scale: 1.05,
+                    rotateY: 5,
+                    transition: { duration: 0.3 },
+                  }
+                })}
+                whileTap={{ scale: 0.95 }}
               >
-                <h3
+                <motion.h3
                   className="value-organic-title"
                   style={{ color: value.color }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
                 >
                   {value.title}.
-                </h3>
-                <p className="value-organic-description">{value.description}</p>
-              </div>
+                </motion.h3>
+                <motion.p
+                  className="value-organic-description"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
+                >
+                  {value.description}
+                </motion.p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Team Section */}
-      <section className="team-section" id="team">
+      <motion.section
+        className="team-section"
+        id="team"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container">
-          <h2 className="section-title">Meet Our Team</h2>
-          <div className="team-grid">
+          <motion.h2 className="section-title" variants={fadeInUp}>
+            Meet Our Team
+          </motion.h2>
+          <motion.div className="team-grid" variants={staggerContainer}>
             {teamMembers.map((member, index) => (
-              <div key={index} className="team-card">
-                <div className="team-image-container">
+              <motion.div
+                key={index}
+                className="team-card"
+                variants={scaleIn}
+                {...(isHoverDevice && {
+                  whileHover: {
+                    y: -10,
+                    scale: 1.02,
+                    transition: { duration: 0.3 },
+                  }
+                })}
+                whileTap={{ scale: 0.98 }}
+              >
+                <motion.div
+                  className="team-image-container"
+                  {...(isHoverDevice && {
+                    whileHover: {
+                      scale: 1.1,
+                      transition: { duration: 0.3 },
+                    }
+                  })}
+                >
                   <img
                     src={member.image}
                     alt={member.name}
@@ -185,23 +440,92 @@ function App() {
                       e.target.src = canvas.toDataURL();
                     }}
                   />
-                </div>
-                <div className="team-info">
-                  <h3 className="team-member-name">{member.name}</h3>
-                  <p className="team-member-role">{member.role}</p>
-                </div>
-              </div>
+                </motion.div>
+                <motion.div
+                  className="team-info"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <motion.h3
+                    className="team-member-name"
+                    {...(isHoverDevice && {
+                      whileHover: { color: "#C084FC" }
+                    })}
+                  >
+                    {member.name}
+                  </motion.h3>
+                  <motion.p
+                    className="team-member-role"
+                    initial={{ opacity: 0.7 }}
+                    {...(isHoverDevice && {
+                      whileHover: { opacity: 1 }
+                    })}
+                  >
+                    {member.role}
+                  </motion.p>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
-      <footer className="footer">
+      <motion.footer
+        className="footer"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
         <div className="container">
-          <p>&copy; 2025 REFINE-X Team. Journey of Transformation.</p>
+          <motion.div className="footer-content" variants={staggerContainer}>
+            <motion.div
+              className="footer-logo"
+              variants={scaleIn}
+              whileHover={{ scale: 1.05 }}
+            >
+              <span className="refine-text">REFINE</span>
+              <span className="dash">-</span>
+              <span className="scifi-x">X</span>
+            </motion.div>
+            <motion.p className="footer-subtitle" variants={fadeInUp}>
+              Journey of Transformation
+            </motion.p>
+            <motion.div className="footer-social" variants={slideInUp}>
+              <motion.a
+                href="https://www.instagram.com/refinex_____?igsh=MXVkN2NibngzbWhzeQ=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="instagram-link"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 30px rgba(255, 107, 157, 0.3)",
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.span
+                  className="instagram-icon"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  📷
+                </motion.span>
+                Follow us on Instagram
+              </motion.a>
+            </motion.div>
+            <motion.p
+              className="footer-copyright"
+              variants={fadeInUp}
+              initial={{ opacity: 0.5 }}
+              whileInView={{ opacity: 1 }}
+            >
+              &copy; 2025 REFINE-X Team. All rights reserved.
+            </motion.p>
+          </motion.div>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }
