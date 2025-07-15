@@ -28,7 +28,12 @@ body::before {
       transparent 50%
     ),
     radial-gradient(
-      circle at 85% 75%,
+      .team-card: hover {transform: translateY(-10px) ; box-shadow: 0 20px 40px rgba(
+          255,
+          107,
+          157,
+          0.15
+        ) ; border-color: rgba(255, 107, 157, 0.3) ;}cle at 85% 75%,
       rgba(219, 39, 119, 0.12) 0%,
       transparent 45%
     ),
@@ -643,12 +648,15 @@ body::before {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  height: 300px;
+  min-height: 300px;
+  max-height: 300px;
 }
 
 .team-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(255, 107, 157, 0.15);
-  border-color: rgba(255, 107, 157, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 107, 157, 0.15);
+  border-color: rgba(255, 107, 157, 0.25);
 }
 
 .team-card::before {
@@ -674,24 +682,49 @@ body::before {
 .team-image-container {
   margin-bottom: 1.5rem;
   position: relative;
+  width: 120px;
+  height: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.team-card:hover .team-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 20px;
+  z-index: 1;
 }
 
 .team-image {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(255, 107, 157, 0.3);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 .team-card:hover .team-image {
   border-color: rgba(255, 107, 157, 0.6);
   box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+  border-radius: 0;
+  border: none;
 }
 
 .team-info {
   color: white;
+  transition: opacity 0.3s ease;
+}
+
+.team-card:hover .team-info {
+  opacity: 0;
 }
 
 .team-member-name {
