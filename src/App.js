@@ -1,22 +1,18 @@
 import "./App.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isHoverDevice, setIsHoverDevice] = useState(true);
 
-  // Detect if device supports hover
   useEffect(() => {
-    const checkHoverSupport = () => {
-      const hasHover = window.matchMedia('(hover: hover)').matches;
-      setIsHoverDevice(hasHover);
-    };
-    
-    checkHoverSupport();
-    window.addEventListener('resize', checkHoverSupport);
-    
-    return () => window.removeEventListener('resize', checkHoverSupport);
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, []);
   // Animation variants
   const fadeInUp = {
@@ -152,9 +148,52 @@ function App() {
     },
   ];
 
+  // Loading Spinner Component
+  const LoadingSpinner = () => (
+    <motion.div
+      className="loading-screen"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="loading-background">
+        <div className="loading-gradient-overlay"></div>
+      </div>
+      <div className="loading-content">
+        <motion.div className="loading-logo-container">
+          <motion.img
+            src="/rx.jpg"
+            alt="Loading..."
+            className="loading-logo"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.7, 1, 0.7],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <div className="App">
-      {/* Navigation Bar */}
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingSpinner key="loading" />
+        ) : (
+          <motion.div
+            key="main-content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Navigation Bar */}
       <motion.nav
         className="navbar"
         initial={{ opacity: 0, y: -50 }}
@@ -339,13 +378,11 @@ function App() {
                 key={index}
                 className={`value-organic-card value-${index + 1}`}
                 variants={scaleIn}
-                {...(isHoverDevice && {
-                  whileHover: {
-                    scale: 1.05,
-                    rotateY: 5,
-                    transition: { duration: 0.3 },
-                  }
-                })}
+                whileHover={{
+                  scale: 1.05,
+                  rotateY: 5,
+                  transition: { duration: 0.3 },
+                }}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.h3
@@ -390,23 +427,19 @@ function App() {
                 key={index}
                 className="team-card"
                 variants={scaleIn}
-                {...(isHoverDevice && {
-                  whileHover: {
-                    y: -10,
-                    scale: 1.02,
-                    transition: { duration: 0.3 },
-                  }
-                })}
+                whileHover={{
+                  y: -10,
+                  scale: 1.02,
+                  transition: { duration: 0.3 },
+                }}
                 whileTap={{ scale: 0.98 }}
               >
                 <motion.div
                   className="team-image-container"
-                  {...(isHoverDevice && {
-                    whileHover: {
-                      scale: 1.1,
-                      transition: { duration: 0.3 },
-                    }
-                  })}
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.3 },
+                  }}
                 >
                   <img
                     src={member.image}
@@ -449,18 +482,14 @@ function App() {
                 >
                   <motion.h3
                     className="team-member-name"
-                    {...(isHoverDevice && {
-                      whileHover: { color: "#C084FC" }
-                    })}
+                    whileHover={{ color: "#C084FC" }}
                   >
                     {member.name}
                   </motion.h3>
                   <motion.p
                     className="team-member-role"
                     initial={{ opacity: 0.7 }}
-                    {...(isHoverDevice && {
-                      whileHover: { opacity: 1 }
-                    })}
+                    whileHover={{ opacity: 1 }}
                   >
                     {member.role}
                   </motion.p>
@@ -526,6 +555,9 @@ function App() {
           </motion.div>
         </div>
       </motion.footer>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
