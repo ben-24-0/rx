@@ -449,6 +449,69 @@ body::before {
   font-weight: 400;
 }
 
+/* Section Styles */
+.motive-section,
+.values-section,
+.team-section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(45deg, #ff6b9d, #c471ed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.motive-text {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  line-height: 1.8;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Values Section Styles */
+.values-organic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.value-organic-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 157, 0.08) 0%,
+    rgba(196, 113, 237, 0.08) 100%
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255, 107, 157, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.value-organic-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.value-organic-description {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /* Footer Section */
 .footer {
   padding: 80px 0 40px 0;
@@ -612,6 +675,64 @@ body::before {
   border-top: 1px solid rgba(255, 107, 157, 0.1);
 }
 
+/* Tablet Responsive Styles */
+@media (max-width: 768px) {
+  .team-name {
+    font-size: clamp(3.5rem, 8vw, 5rem);
+  }
+
+  .refine-text {
+    font-size: 1em;
+  }
+
+  .scifi-x {
+    font-size: clamp(3.5rem, 8vw, 5rem);
+  }
+
+  .team-subtitle {
+    font-size: 1.2rem;
+  }
+
+  /* Section spacing improvements */
+  .motive-section,
+  .values-section,
+  .team-section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    margin-bottom: 2.5rem;
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .motive-text {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    padding: 0 1rem;
+  }
+
+  .values-organic-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .value-organic-card {
+    padding: 2rem;
+  }
+
+  /* Team grid - 2 columns for tablet */
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .team-card {
+    height: 280px;
+    max-width: none;
+  }
+}
+
 @media (max-width: 480px) {
   /* Extra small mobile devices */
   .navbar {
@@ -646,98 +767,163 @@ body::before {
   }
 
   .team-name {
-    font-size: 2.2rem;
+    font-size: clamp(3rem, 12vw, 4.5rem);
   }
 
   .refine-text {
-    font-size: 0.8em;
+    font-size: 1em;
   }
 
   .scifi-x {
-    font-size: 2.5rem;
+    font-size: clamp(3.2rem, 12vw, 4.7rem);
   }
 
   .container {
-    padding: 0 0.5rem;
+    padding: 0 1rem;
+  }
+
+  /* Mobile section spacing - much better separation */
+  .motive-section,
+  .values-section,
+  .team-section {
+    padding: 50px 0;
+    margin-bottom: 20px;
+  }
+
+  .motive-section {
+    border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+    padding-bottom: 70px;
+  }
+
+  .values-section {
+    border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+    padding-bottom: 70px;
   }
 
   .section-title {
-    font-size: 1.6rem;
-  }
-
-  .value-organic-card {
-    padding: 1.5rem 1rem;
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
     margin-bottom: 2rem;
+    padding: 0 0.5rem;
   }
 
-  .value-organic-title {
-    font-size: 1.8rem;
-  }
-
-  .value-organic-description {
-    font-size: 0.85rem;
-  }
-
-  .team-section {
-    padding: 2rem 0;
-  }
-
-  .team-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 0;
-  }
-
-  .team-card {
-    padding: 1.2rem 1rem;
-    margin: 0 auto;
-    max-width: 280px;
-    background: rgba(255, 255, 255, 0.03);
-  }
-
-  .team-image-container {
+  .motive-text {
+    font-size: clamp(0.95rem, 4vw, 1.1rem);
+    line-height: 1.7;
+    padding: 0 1rem;
     margin-bottom: 1rem;
   }
 
-  .team-image {
-    height: 160px;
-    border-radius: 12px;
+  /* Values section mobile improvements */
+  .values-organic-grid {
+    gap: 1.5rem;
+    padding: 0 0.5rem;
   }
-}
 
-.team-member-name {
-  font-size: 0.95rem;
-}
+  .value-organic-card {
+    padding: 1.8rem 1.5rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 107, 157, 0.1);
+  }
 
-.team-member-role {
-  font-size: 0.8rem;
-}
+  .value-organic-title {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+    margin-bottom: 1rem;
+  }
 
-.footer {
-  padding: 1.5rem 0 1rem 0;
-}
+  .value-organic-description {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    line-height: 1.6;
+  }
 
-.footer-logo {
-  font-size: 1.2rem;
-  margin-bottom: 0.6rem;
-}
+  /* Team section - 3x3 grid with consistent sizing */
+  .team-section {
+    padding: 50px 0 40px 0;
+  }
 
-.footer-subtitle {
-  font-size: 0.85rem;
-  margin-bottom: 1.2rem;
-}
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.8rem;
+    padding: 0 0.5rem;
+    max-width: 100%;
+  }
 
-.instagram-link {
-  padding: 0.7rem 1.2rem;
-  font-size: 0.85rem;
-}
+  .team-card {
+    padding: 1rem 0.6rem;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 107, 157, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-.instagram-icon {
-  font-size: 1.1rem;
-}
+  .team-image-container {
+    margin-bottom: 0.5rem;
+    width: 50px;
+    height: 50px;
+  }
 
-.footer-copyright {
-  font-size: 0.75rem;
+  .team-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 107, 157, 0.3);
+  }
+
+  .team-info {
+    text-align: center;
+    padding: 0;
+  }
+
+  .team-member-name {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+    line-height: 1.1;
+    font-weight: 600;
+  }
+
+  .team-member-role {
+    font-size: 0.65rem;
+    opacity: 0.8;
+    line-height: 1.1;
+  }
+
+  /* Footer mobile improvements */
+  .footer {
+    padding: 40px 0 30px 0;
+    margin-top: 40px;
+  }
+
+  .footer-logo {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .instagram-link {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .instagram-icon {
+    font-size: 1.2rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.8rem;
+  }
 }
 
 /* Disable hover effects on touch devices */
