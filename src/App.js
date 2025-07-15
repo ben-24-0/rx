@@ -1,19 +1,9 @@
 import "./App.css";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -148,52 +138,9 @@ function App() {
     },
   ];
 
-  // Loading Spinner Component
-  const LoadingSpinner = () => (
-    <motion.div
-      className="loading-screen"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="loading-background">
-        <div className="loading-gradient-overlay"></div>
-      </div>
-      <div className="loading-content">
-        <motion.div className="loading-logo-container">
-          <motion.img
-            src="/rx.jpg"
-            alt="Loading..."
-            className="loading-logo"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.7, 1, 0.7],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-
   return (
     <div className="App">
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <LoadingSpinner key="loading" />
-        ) : (
-          <motion.div
-            key="main-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Navigation Bar */}
+      {/* Navigation Bar */}
       <motion.nav
         className="navbar"
         initial={{ opacity: 0, y: -50 }}
@@ -206,10 +153,7 @@ function App() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <img src="/rx.jpg" alt="REFINE-X Logo" className="logo" />
-            <span className="logo-text">
-              REFINE<span className="accent">-X</span>
-            </span>
+            <img src="/rx.jpg" alt="RX Logo" className="logo" />
           </motion.div>
 
           {/* Mobile Menu Toggle */}
@@ -555,9 +499,6 @@ function App() {
           </motion.div>
         </div>
       </motion.footer>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
