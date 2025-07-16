@@ -1,9 +1,20 @@
 import "./App.css";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading time
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // 2 seconds loading time
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -137,6 +148,28 @@ function App() {
       image: "/team/abhin.jpg",
     },
   ];
+
+  // Loading screen with pulsating RX logo
+  if (isLoading) {
+    return (
+      <div className="loading-screen">
+        <motion.div
+          className="loading-logo"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.7, 1, 0.7],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <img src="/rx.jpg" alt="RX Logo" />
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
