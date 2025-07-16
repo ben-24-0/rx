@@ -14,6 +14,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  max-width: 100%;
 }
 
 body {
@@ -22,6 +23,8 @@ body {
   color: white;
   overflow-x: hidden;
   position: relative;
+  width: 100%;
+  max-width: 100vw;
 }
 
 body::before {
@@ -63,12 +66,17 @@ body::before {
 
 .App {
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Navigation Bar */
@@ -182,9 +190,12 @@ body::before {
   cursor: pointer;
   padding: 8px;
   gap: 4px;
-  position: static;
-  transform: none;
-  transition: none;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  z-index: 1001;
+  transition: all 0.3s ease;
 }
 
 .mobile-menu-toggle span {
@@ -192,8 +203,25 @@ body::before {
   height: 3px;
   background: white;
   border-radius: 2px;
-  transition: none;
-  transform: none;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.mobile-menu-toggle:hover span {
+  background: #ff6b9d;
+}
+
+/* Hamburger menu animation when opened */
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 @media (max-width: 768px) {
@@ -204,39 +232,41 @@ body::before {
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 107, 157, 0.1);
     z-index: 1000;
+    padding: 0;
   }
 
   .navbar-container {
     height: 70px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    position: static;
     padding: 0 20px;
     max-width: 100%;
     margin: 0;
-    transform: none;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .navbar-logo {
     display: flex;
     align-items: center;
-    position: static;
-    transform: none;
-    flex: 0 0 50px;  /* fixed width for logo container */
+    flex-shrink: 0;
+    order: 1;
+  }
+
+  .logo {
+    width: 45px;
+    height: 45px;
   }
 
   .mobile-menu-toggle {
     display: flex;
-    position: static;
-    right: auto;
-    top: auto;
-    transform: none;
+    order: 2;
     margin-left: auto;
-    flex-shrink: 0;
   }
 
   .navbar-menu {
@@ -245,18 +275,49 @@ body::before {
     top: 70px;
     left: 0;
     right: 0;
-    background: rgba(15, 15, 15, 0.98);
+    background: rgba(0, 0, 0, 0.98);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem;
+    border-top: 1px solid rgba(255, 107, 157, 0.1);
+    padding: 1.5rem 1rem;
     flex-direction: column;
-    gap: 0.8rem;
-    z-index: 1000;
-    transform: none;
+    gap: 1rem;
+    z-index: 999;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   .navbar-menu.mobile-open {
     display: flex !important;
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .navbar-link {
+    width: 100%;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 1rem;
+    background: rgba(255, 107, 157, 0.05);
+    border: 1px solid rgba(255, 107, 157, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-link:hover {
+    background: rgba(255, 107, 157, 0.15);
+    border-color: rgba(255, 107, 157, 0.3);
+    transform: translateY(-1px);
   }
 }
 
@@ -268,35 +329,39 @@ body::before {
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 107, 157, 0.1);
     z-index: 1000;
+    padding: 0;
   }
 
   .navbar-container {
     height: 70px;
-    padding: 0 1rem;
+    padding: 0 15px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    position: static;
     max-width: 100%;
     margin: 0;
-    transform: none;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .navbar-logo {
-    position: static;
-    transform: none;
-    flex: 0 0 50px;  /* fixed width for logo container */
+    flex-shrink: 0;
+    order: 1;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
   }
 
   .mobile-menu-toggle {
     display: flex;
-    position: static;
-    transform: none;
+    order: 2;
     margin-left: auto;
-    flex-shrink: 0;
   }
 
   .navbar-menu {
@@ -305,18 +370,31 @@ body::before {
     top: 70px;
     left: 0;
     right: 0;
-    background: rgba(15, 15, 15, 0.98);
+    background: rgba(0, 0, 0, 0.98);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 107, 157, 0.1);
     padding: 1rem;
     flex-direction: column;
     gap: 0.8rem;
-    z-index: 1000;
-    transform: none;
+    z-index: 999;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   .navbar-menu.mobile-open {
     display: flex !important;
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  .navbar-link {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    background: rgba(255, 107, 157, 0.05);
+    border: 1px solid rgba(255, 107, 157, 0.1);
+    border-radius: 8px;
   }
 }
 
@@ -1053,68 +1131,11 @@ body::before {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  /* Navbar Mobile Styles */
-  .navbar {
-    padding: 0.8rem 0;
-    position: fixed;
-    background: rgba(15, 15, 15, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .navbar-container {
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  .navbar-logo {
-    justify-content: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .logo {
-    width: 35px;
-    height: 35px;
-  }
-
-  .logo-text {
-    font-size: 1.3rem;
-  }
-
-  .navbar-menu {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    width: 100%;
-  }
-
-  .navbar-link {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-    min-width: auto;
-    flex: 0 1 auto;
-    white-space: nowrap;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .navbar-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
-  }
-
   /* Header Mobile Styles */
   .header {
     padding: 2rem 1rem;
-    padding-top: 140px;
-    min-height: 70vh;
+    padding-top: 100px;
+    min-height: 80vh;
   }
 
   .team-name {
@@ -1136,7 +1157,8 @@ body::before {
 
   /* Container padding for mobile */
   .container {
-    padding: 0 1rem;
+    padding: 0 15px;
+    max-width: 100%;
   }
 
   /* Section spacing */
@@ -1294,36 +1316,12 @@ body::before {
 }
 
 @media (max-width: 480px) {
-  /* Extra small mobile devices */
-  .navbar {
-    padding: 0.6rem 0;
-  }
-
-  .navbar-container {
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 0 0.5rem;
-  }
-
-  .navbar-menu {
-    gap: 0.4rem;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
-
-  .navbar-link {
-    font-size: 0.85rem;
-    padding: 8px 20px;
-    width: 80%;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.08);
-    margin-bottom: 0.2rem;
-  }
-
+  /* Extra small mobile devices - Header and content adjustments */
   .header {
-    padding-top: 160px;
-    min-height: 60vh;
+    padding-top: 90px;
+    min-height: 70vh;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .team-name {
@@ -1407,39 +1405,4 @@ body::before {
     opacity: 1 !important;
     transition: none !important;
   }
-}
-
-.team-member-name {
-  font-size: 0.95rem;
-}
-
-.team-member-role {
-  font-size: 0.8rem;
-}
-
-.footer {
-  padding: 1.5rem 0 1rem 0;
-}
-
-.footer-logo {
-  font-size: 1.2rem;
-  margin-bottom: 0.6rem;
-}
-
-.footer-subtitle {
-  font-size: 0.85rem;
-  margin-bottom: 1.2rem;
-}
-
-.instagram-link {
-  padding: 0.7rem 1.2rem;
-  font-size: 0.85rem;
-}
-
-.instagram-icon {
-  font-size: 1.1rem;
-}
-
-.footer-copyright {
-  font-size: 0.75rem;
 }

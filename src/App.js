@@ -158,7 +158,7 @@ function App() {
 
           {/* Mobile Menu Toggle */}
           <motion.button
-            className="mobile-menu-toggle"
+            className={`mobile-menu-toggle ${isMobileMenuOpen ? "active" : ""}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
