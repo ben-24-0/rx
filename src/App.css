@@ -1139,16 +1139,16 @@ body::before {
   }
 
   .team-name {
-    font-size: 3rem;
+    font-size: clamp(3.5rem, 8vw, 4.5rem);
     margin-bottom: 0.8rem;
   }
 
   .refine-text {
-    font-size: 0.9em;
+    font-size: 1.1em;
   }
 
   .scifi-x {
-    font-size: 3.2rem;
+    font-size: 1.1em;
   }
 
   .team-subtitle {
@@ -1325,15 +1325,15 @@ body::before {
   }
 
   .team-name {
-    font-size: 2.2rem;
+    font-size: clamp(2.8rem, 7vw, 3.5rem);
   }
 
   .refine-text {
-    font-size: 0.8em;
+    font-size: 1em;
   }
 
   .scifi-x {
-    font-size: 2.5rem;
+    font-size: 1em;
   }
 
   .container {
